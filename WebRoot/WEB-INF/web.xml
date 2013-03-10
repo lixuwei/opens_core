@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  
+  <!-- 项目监控  -->
+	<filter>    
+	        <filter-name>monitoring</filter-name>    
+	        <filter-class>net.bull.javamelody.MonitoringFilter</filter-class>    
+	</filter>    
+	<filter-mapping>    
+	        <filter-name>monitoring</filter-name>    
+	        <url-pattern>/*</url-pattern>    
+	</filter-mapping>    
+	<listener>    
+	        <listener-class>net.bull.javamelody.SessionListener</listener-class>    
+	</listener>  
+ <!-- 项目监控  -->
+ 
+  <!-- Encoding  -->
+  <filter>
+    <filter-name>Encoding</filter-name>
+    <filter-class>com.core.common.filter.FilterEcoding</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>Encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- Encoding  -->
+  	
+  	<!-- 验证是否登录过滤器 -->
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.core.common.filter.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	 <!-- 验证是否登录过滤器 END -->
+	 
+   <!-- struts2  -->
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>
+			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+		</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>*.action</url-pattern>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+    <!-- struts2  -->
+  
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  
+  <listener>  
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
+</listener>  
+
+  <listener> 
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- jsp去掉多余的空行 -->
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <trim-directive-whitespaces>true</trim-directive-whitespaces>
+    </jsp-property-group>
+  </jsp-config>
+  
+</web-app>
